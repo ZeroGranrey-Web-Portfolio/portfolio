@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import contactImg from "../assets/img/contact-img.svg";
+import emailjs from "@emailjs/browser";
 const Contact = () => {
   const formInitialDetails = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
+    user_name: "",
+    user_email: "",
     message: "",
   };
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Send");
   const [status, setStatus] = useState({});
+  const form = useRef();
+
   const onFormUpdate = (e) => {
     setFormDetails({
       ...formDetails,
@@ -23,23 +24,28 @@ const Contact = () => {
     e.preventDefault();
     try {
       setButtonText("Sending...");
-      console.log(formDetails);
-      let response = await fetch(
-        "https://yaruk-portfolio.herokuapp.com/contact",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "Application/json;charset=utf-8",
+      emailjs
+        .sendForm(
+          process.env.REACT_APP_SERVICE_ID,
+          process.env.REACT_APP_TEMPLATE_ID,
+          form.current,
+          process.env.REACT_APP_PUBLIC_KEY
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+            setButtonText("Send");
+            setFormDetails(formInitialDetails);
+            setStatus({ success: true, message: "Message was sent" });
           },
-          body: JSON.stringify(formDetails),
-        }
-      );
-      setButtonText("Send");
-      let result = await response.json();
-      setFormDetails(formInitialDetails);
-      setStatus({ success: true, message: "Message sent successfully" });
+          (error) => {
+            console.log(error.text);
+            setStatus({ success: false, message: "Something went wrong" });
+            setButtonText("Send");
+          }
+        );
     } catch (error) {
-      setStatus({ success: false, message: "Something Went Wrong" });
+      setStatus({ success: false, message: "Something went wrong" });
       setButtonText("Send");
     }
   };
@@ -53,52 +59,35 @@ const Contact = () => {
           </Col>
           <Col md={6}>
             <h2>Get In Touch</h2>
-            <form onSubmit={handleSubmit}>
+            <form ref={form} onSubmit={handleSubmit}>
               <Row>
-                <Col sm={6} className="px-1">
+                <Col sm={8} className="px-1">
                   <input
-                    name="firstName"
+                    name="user_name"
                     type="text"
-                    value={formDetails.firstName}
+                    value={formDetails.user_name}
                     onChange={(e) => onFormUpdate(e)}
-                    placeholder="First Name"
+                    placeholder="Your Name"
                   />
                 </Col>
-                <Col sm={6} className="px-1">
+                <Col sm={8} className="px-1">
                   <input
-                    name="lastName"
-                    type="text"
-                    value={formDetails.lastName}
-                    onChange={(e) => onFormUpdate(e)}
-                    placeholder="Last Name"
-                  />
-                </Col>
-                <Col sm={6} className="px-1">
-                  <input
-                    name="email"
+                    name="user_email"
                     type="email"
-                    value={formDetails.email}
+                    value={formDetails.user_email}
                     onChange={(e) => onFormUpdate(e)}
                     placeholder="Email"
                   />
-                </Col>
-                <Col sm={6} className="px-1">
-                  <input
-                    name="phone"
-                    type="tel"
-                    value={formDetails.phone}
-                    onChange={(e) => onFormUpdate(e)}
-                    placeholder="Phone Number"
-                  />
-                </Col>
-                <Col className="px-1">
                   <textarea
-                    row={6}
+                    row={8}
                     name="message"
                     value={formDetails.message}
                     onChange={(e) => onFormUpdate(e)}
                     placeholder="Message"
                   />
+                </Col>
+
+                <Col sm={6} className="px-1">
                   <button type="submit">
                     <span>{buttonText}</span>
                   </button>

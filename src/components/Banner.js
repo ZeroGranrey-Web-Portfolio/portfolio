@@ -4,13 +4,13 @@ import { ArrowRightCircle } from "react-bootstrap-icons";
 import headerImage from "../assets/img/header-img.svg";
 import TrackVisibility from "react-on-screen";
 import "animate.css";
-
+import bannerImg from "../assets/img/banner-bg.png";
 const Banner = () => {
   const [loopNum, setLoopNum] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const toRotate = ["Web Developer", "FullStack Developer", "Batman"];
+  const toRotate = ["Yaroslav Shliakhovchuk", "Fullstack Developer", "Batman"];
   const [text, setText] = useState("");
-  const [delta, setDelta] = useState(300 - Math.random() * 100);
+  const [delta, setDelta] = useState(110);
   const period = 2000;
 
   useEffect(() => {
@@ -28,23 +28,30 @@ const Banner = () => {
     let updateText = isDeleting
       ? fullText.substring(0, text.length - 1)
       : fullText.substring(0, text.length + 1);
+    if (updateText === "") updateText = "\xa0";
     setText(updateText);
     if (isDeleting) {
-      setDelta((prevDelta) => prevDelta / 2);
+      setDelta(45);
     }
 
     if (!isDeleting && updateText === fullText) {
       setIsDeleting(true);
       setDelta(period);
-    } else if (isDeleting && updateText === "") {
+    } else if (isDeleting && updateText === "\xa0") {
       setIsDeleting(false);
       setLoopNum(loopNum + 1);
-      setDelta(500);
+      setDelta(50);
     }
   };
 
   return (
-    <section className="banner" id="home">
+    <section
+      className="banner"
+      id="home"
+      style={{
+        backgroundImage: "url(" + bannerImg + ")",
+      }}
+    >
       <Container>
         <Row className="align-items-center">
           <Col xs={12} md={6} xl={7}>
@@ -55,19 +62,15 @@ const Banner = () => {
                     isVisible ? "animate__animated animate__fadeInLeft" : ""
                   }
                 >
-                  <span className="tagline">Welcome to my Portfolio</span>
-                  <h1>
-                    {"Hi i'm "} <span className="wrap">{text}</span>
+                  <span className="tagline ">Welcome to my Portfolio</span>
+                  <h1 className="hello">
+                    {"Hi i'm "} <br />
+                    <span className=" name">{text}</span>
                   </h1>
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Explicabo dolor esse cumque ex autem vel cupiditate a
-                    tempore ut molestias voluptatem repudiandae laudantium,
-                    officiis possimus repellat dolorem nesciunt nulla doloribus!
-                  </p>
+                  <p></p>
                   <button
                     onClick={() => {
-                      console.log("Clicked");
+                      document.location.href = "#contact";
                     }}
                   >
                     Let's connect <ArrowRightCircle size={25} />

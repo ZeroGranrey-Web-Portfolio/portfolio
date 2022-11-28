@@ -8,27 +8,30 @@ import {
   Nav,
 } from "react-bootstrap";
 import ProjectCard from "./ProjectCard";
-import img1 from "../assets/img/project-img1.png";
-import img2 from "../assets/img/project-img2.png";
-import img3 from "../assets/img/project-img3.png";
+import img1 from "../assets/img/project-image1.png";
+import img2 from "../assets/img/project-image2.png";
+import img3 from "../assets/img/project-image3.png";
 import colorSharp from "../assets/img/color-sharp2.png";
 
 const Projects = () => {
   const projects = [
     {
-      title: "Project-1",
-      description:
-        "dfkjdf djdj nfnfj bjdbnfbdfb bdbfjdbfjdbfjdbfjdb fdjbd bd   djb fjbd fjd djb",
+      title: "Share Me",
+      description: "Site for sharing and downloading pictures",
+      url: "https://yaruk-shareme-app.netlify.app/",
       imageURL: img1,
     },
     {
-      title: "Project-2",
-      description: "s dfbsjhbdsj bjb jds fbhjdsfb jsdhfbh sj fbsd fbds",
+      title: "Lyrics",
+      description: "Site for listening music",
+      url: "https://yaruk-music-site-lyriks.netlify.app/",
+
       imageURL: img2,
     },
     {
-      title: "Project-3",
-      description: "k jfbsdk bfskfbskfsdk fkbsfkdsbkdsbfb",
+      title: "Keeper App",
+      description: "Site for keeping notes",
+      url: "https://yaruk-keeper-app-site.netlify.app/",
       imageURL: img3,
     },
   ];
@@ -37,37 +40,30 @@ const Projects = () => {
       <Container>
         <Row>
           <Col>
-            <h2>Projects</h2>
-            <p>
-              asf knsdlkfsnlsnfks
-              flsksdbfkdjbfksdjbfsdbfdsbfjsdkfbjsdbjsdbfkjdsbfksb kb
-            </p>
-            <TabContainer id="projects-tabs" defaultActiveKey="first">
+            <h2>My Projects</h2>
+            <br />
+            <TabContainer id="projects-tabs" defaultActiveKey="0">
               <Nav
                 variant="pills"
                 className="nav-pills mb-5 justify-content-center"
                 id="pills-tab"
               >
-                <Nav.Item>
-                  <Nav.Link eventKey="first">Tab One</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="second">Tab two</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link eventKey="third">Tab three</Nav.Link>
-                </Nav.Item>
+                {projects.map((pr, index) => (
+                  <Nav.Item key={index}>
+                    <Nav.Link eventKey={index}>{pr.title}</Nav.Link>
+                  </Nav.Item>
+                ))}
               </Nav>
               <TabContent>
-                <TabPane eventKey="first">
-                  <Row>
-                    {projects.map((project, index) => {
-                      return <ProjectCard key={index} {...project} />;
-                    })}
-                  </Row>
-                </TabPane>
-                <TabPane eventKey="second">Lorem Ipsum</TabPane>
-                <TabPane eventKey="third">Lorem Ipsum</TabPane>
+                {projects.map((project, index) => {
+                  return (
+                    <TabPane key={index} eventKey={index}>
+                      <Row className="container justify-content-center">
+                        <ProjectCard {...project} />{" "}
+                      </Row>{" "}
+                    </TabPane>
+                  );
+                })}
               </TabContent>
             </TabContainer>
           </Col>

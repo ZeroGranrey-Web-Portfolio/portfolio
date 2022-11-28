@@ -32,13 +32,8 @@ const Skills = () => {
         <Row>
           <Col>
             <div className="skill-bx">
-              <h2>Skills</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Placeat voluptate, sunt tempora fuga nostrum veniam facere eum
-                libero aliquid fugit exercitationem voluptates odit. Provident
-                porro exercitationem consequatur rerum voluptatibus nobis.
-              </p>
+              <h2>Technical Skills</h2>
+              <br />
               <Carousel
                 responsive={responsive}
                 infinite={true}
@@ -46,19 +41,27 @@ const Skills = () => {
               >
                 <div className="item">
                   <img src={meter1} alt="img" />
-                  <h5>Web Development</h5>
-                </div>
-                <div className="item">
-                  <img src={meter2} alt="img" />
                   <h5>React</h5>
                 </div>
                 <div className="item">
-                  <img src={meter3} alt="img" />
+                  <img src={meter1} alt="img" />
                   <h5>Node JS</h5>
                 </div>
                 <div className="item">
                   <img src={meter1} alt="img" />
-                  <h5>Web Development</h5>
+                  <h5>Next JS</h5>
+                </div>
+                <div className="item">
+                  <img src={meter1} alt="img" />
+                  <h5>MongoDB</h5>
+                </div>
+                <div className="item">
+                  <img src={meter3} alt="img" />
+                  <h5>Tailwind CSS</h5>
+                </div>
+                <div className="item">
+                  <img src={meter2} alt="img" />
+                  <h5>Sanity</h5>
                 </div>
               </Carousel>
             </div>

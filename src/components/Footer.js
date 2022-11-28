@@ -3,29 +3,30 @@ import logo from "../assets/img/logo.svg";
 import navIcon1 from "../assets/img/nav-icon1.svg";
 import navIcon2 from "../assets/img/nav-icon2.svg";
 import navIcon3 from "../assets/img/nav-icon3.svg";
-
+import footerImg from "../assets/img/footer-bg.png";
 const Footer = () => {
   const year = new Date().getFullYear();
   return (
-    <footer className="footer">
+    <footer
+      className="footer"
+      style={{
+        backgroundImage: "url(" + footerImg + ")",
+      }}
+    >
       <Container>
         <Row className="align-items-center">
-          <Col sm={6}>
-            <img src={logo} alt="Logo" />
-          </Col>
-          <Col sm={6} className="text-center text-sm-end">
+          <Col sm={12} className="text-center text-sm-end m-2">
             <div className="social-icon">
-              <a href="">
-                <img src={navIcon1} alt="icon" />
-              </a>
-              <a href="">
-                <img src={navIcon2} alt="icon" />
-              </a>
-              <a href="">
-                <img src={navIcon3} alt="icon" />
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://www.linkedin.com/in/yaroslav-shlyahovchuk-076415227"
+              >
+                <img src={navIcon1} alt="" />
               </a>
             </div>
-            <p>CopyRight {year}. All Right Reserved</p>
+            <p>Email: yaroslavshlyahovchuk@gmail.com</p>
+            <p>CopyRight {year}</p>
           </Col>
         </Row>
       </Container>
